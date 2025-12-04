@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🚀 Sistema de Usuarios - DB</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-content">
+                <h1>👥 Sistema de Gestión de Usuarios</h1>
+                <p>Base de datos en tiempo real
+                <div class="connection-status">
+                    <span id="connectionStatus">🔴 Conectando...</span>
+                </div>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <!-- Panel de Estadísticas -->
+            <section class="stats-section">
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalUsers">0</span>
+                            <span class="stat-label">Total Usuarios</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💼</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalProfessions">0</span>
+                            <span class="stat-label">Profesiones</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🏙️</div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalCities">0</span>
+                            <span class="stat-label">Ciudades</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Formulario de Usuario -->
+            <section class="form-section">
+                <h2>📝 <span id="formTitle">Agregar Nuevo Usuario</span></h2>
+                <form id="userForm" class="user-form">
+                    <input type="hidden" id="userId">
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nombre">👤 Nombre Completo *</label>
+                            <input type="text" id="nombre" name="nombre" required 
+                                   placeholder="Ej: Juan Pérez García">
+                            <span class="error-message" id="nombreError"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">📧 Email *</label>
+                            <input type="email" id="email" name="email" required 
+                                   placeholder="Ej: juan@empresa.com">
+                            <span class="error-message" id="emailError"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="telefono">📞 Teléfono</label>
+                            <input type="tel" id="telefono" name="telefono" 
+                                   placeholder="Ej: +34 612 345 678">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="edad">🎂 Edad</label>
+                            <input type="number" id="edad" name="edad" min="18" max="100" 
+                                   placeholder="Ej: 30">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="ciudad">🏙️ Ciudad</label>
+                            <input type="text" id="ciudad" name="ciudad" 
+                                   placeholder="Ej: Madrid">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="profesion">💼 Profesión</label>
+                            <select id="profesion" name="profesion">
+                                <option value="">Seleccionar profesión...</option>
+                                <option value="Desarrollador">💻 Desarrollador</option>
+                                <option value="Diseñador">🎨 Diseñador</option>
+                                <option value="Analista">📊 Analista</option>
+                                <option value="Gerente">👔 Gerente</option>
+                                <option value="Estudiante">🎓 Estudiante</option>
+                                <option value="Consultor">💼 Consultor</option>
+                                <option value="Marketing">📈 Marketing</option>
+                                <option value="Ventas">🤝 Ventas</option>
+                                <option value="Otro">🔧 Otro</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" id="submitBtn" class="btn btn-primary btn-large">
+                            ➕ Agregar Usuario
+                        </button>
+                        <button type="button" id="cancelBtn" class="btn btn-secondary" style="display: none;">
+                            ❌ Cancelar
+                        </button>
+                        <button type="button" id="clearBtn" class="btn btn-outline">
+                            🗑️ Limpiar Formulario
+                        </button>
+                    </div>
+                </form>
+            </section>
+
+            <!-- Búsqueda y Filtros -->
+            <section class="search-section">
+                <h2>🔍 Buscar y Filtrar Usuarios</h2>
+                <div class="search-controls">
+                    <div class="search-input-group">
+                        <input type="text" id="searchInput" 
+                               placeholder="Buscar por nombre, email o ciudad...">
+                        <span class="search-icon">🔍</span>
+                    </div>
+                    
+                    <select id="filterProfesion">
+                        <option value="">Todas las profesiones</option>
+                        <option value="Desarrollador">💻 Desarrollador</option>
+                        <option value="Diseñador">🎨 Diseñador</option>
+                        <option value="Analista">📊 Analista</option>
+                        <option value="Gerente">👔 Gerente</option>
+                        <option value="Estudiante">🎓 Estudiante</option>
+                        <option value="Consultor">💼 Consultor</option>
+                        <option value="Marketing">📈 Marketing</option>
+                        <option value="Ventas">🤝 Ventas</option>
+                        <option value="Otro">🔧 Otro</option>
+                    </select>
+
+                    <select id="filterCiudad">
+                        <option value="">Todas las ciudades</option>
+                    </select>
+
+                    <button id="searchBtn" class="btn btn-primary">
+                        🔍 Buscar
+                    </button>
+                    <button id="resetSearch" class="btn btn-outline">
+                        🔄 Limpiar
+                    </button>
+                </div>
+            </section>
+
+            <!-- Lista de Usuarios -->
+            <section class="list-section">
+                <div class="section-header">
+                    <h2>👥 Lista de Usuarios</h2>
+                    <div class="table-controls">
+                        <button id="exportBtn" class="btn btn-outline btn-sm">
+                            📥 Exportar JSON
+                        </button>
+                        <span id="tableCount" class="table-count">Cargando...</span>
+                    </div>
+                </div>
+
+                <div class="table-container">
+                    <table id="usersTable" class="users-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre</th>
+                                <th>Email</th>
+                                <th>Teléfono</th>
+                                <th>Edad</th>
+                                <th>Ciudad</th>
+                                <th>Profesión</th>
+                                <th>Fecha Registro</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody id="usersTableBody">
+                            <tr>
+                                <td colspan="9" class="loading-cell">
+                                    <div class="loading-spinner"></div>
+                                    Cargando usuarios...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="table-empty" id="tableEmpty" style="display: none;">
+                    <div class="empty-state">
+                        <div class="empty-icon">👥</div>
+                        <h3>No hay usuarios registrados</h3>
+                        <p>Comienza agregando el primer usuario usando el formulario superior.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Modal de Confirmación -->
+        <div id="confirmModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>⚠️ Confirmar Acción</h3>
+                    <button class="modal-close" id="modalClose">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p id="confirmMessage">¿Estás seguro de que quieres eliminar este usuario?</p>
+                </div>
+                <div class="modal-actions">
+                    <button id="confirmYes" class="btn btn-danger">✅ Sí, Eliminar</button>
+                    <button id="confirmNo" class="btn btn-secondary">❌ Cancelar</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notificaciones -->
+        <div id="notification" class="notification"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="database.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
