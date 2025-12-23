@@ -7,8 +7,8 @@ class DatabaseManager {
         
         // 🔑 CONFIGURA AQUÍ TUS CREDENCIALES DE SUPABASE
         this.config = {
-            url: 'https://uqpzulidjeciqpqpnkxx.supabase.co',  // ← Cambia esto
-            key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcHp1bGlkamVjaXFwcXBua3h4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxMjk1MzksImV4cCI6MjA3OTcwNTUzOX0.Uh4nMRDHBNcQ1D9LPHxXpFU8s_w4fEMPvBIgiGadMtk'  // ← Cambia esto
+            url: 'https://uqpzulidjeciqpqpnkxx.supabase.co',  
+            key: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVxcHp1bGlkamVjaXFwcXBua3h4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjQxMjk1MzksImV4cCI6MjA3OTcwNTUzOX0.Uh4nMRDHBNcQ1D9LPHxXpFU8s_w4fEMPvBIgiGadMtk' 
         };
         
         this.init();
